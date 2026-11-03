@@ -46,8 +46,11 @@ next-env.d.ts
 /data/*.db-journal
 
 # fichiers uploadés localement
-/public/uploads/*
-!/public/uploads/.gitkeep
+# -> commités pour la prod (déploiement Vercel à partir du repo Git) : ce sont
+#    les logos/photos déjà en place sur le site, pas des uploads jetables.
+#    Les NOUVEAUX uploads faits depuis le back-office en production ne
+#    persisteront pas entre deux déploiements (disque éphémère Vercel) sauf
+#    passage à STORAGE_DRIVER=vercel-blob — voir README § 5.3.
 
 # prisma (sqlite dev artifacts dans prisma/ si jamais générés)
 /prisma/*.db
