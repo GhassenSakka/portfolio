@@ -1,0 +1,3 @@
+# Normalise les fins de ligne (LF) sur toutes les plateformes pour éviter les
+# avertissements CRLF/LF lors des commits Windows/Mac/Linux.
+* text=auto eol=lf
