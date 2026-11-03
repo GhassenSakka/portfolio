@@ -17,6 +17,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
+    // Autorise l'optimisation des logos SVG locaux (ex. Microsoft, BIAT),
+    // désactivée par défaut par Next.js pour des raisons de sécurité.
+    // Sans danger ici : uniquement des fichiers de confiance dans /public/uploads.
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 };
 
