@@ -1,0 +1,111 @@
+{
+  "Metadata": {
+    "title": "Ghassen SAKKA — Cloud Consultant Azure",
+    "description": "Portfolio professionnel de Ghassen SAKKA, Cloud Consultant chez CloudShift : Azure, Architecture Cloud, FinOps, Gouvernance."
+  },
+  "Nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "migration": "Migration",
+    "certifications": "Certifications",
+    "education": "Formation",
+    "associative": "Vie associative",
+    "interests": "Centres d'intérêt",
+    "contact": "Contact",
+    "downloadCv": "Télécharger mon CV",
+    "admin": "Back-office"
+  },
+  "Theme": {
+    "light": "Mode clair",
+    "dark": "Mode sombre",
+    "toggle": "Changer de thème"
+  },
+  "Language": {
+    "fr": "Français",
+    "en": "English",
+    "switchTo": "Changer de langue"
+  },
+  "Hero": {
+    "eyebrow": "Portfolio professionnel",
+    "ctaContact": "Me contacter",
+    "ctaCv": "Télécharger mon CV",
+    "ctaLinkedin": "Voir mon LinkedIn",
+    "statsYears": "ans d'expérience cloud",
+    "statsCertifications": "certifications professionnelles",
+    "statsProjects": "projets cloud livrés"
+  },
+  "About": {
+    "title": "À propos"
+  },
+  "Experience": {
+    "title": "Expérience professionnelle",
+    "current": "Aujourd'hui",
+    "present": "Présent"
+  },
+  "Projects": {
+    "title": "Projets"
+  },
+  "Migration": {
+    "title": "Migration",
+    "subtitle": "Accompagnement des entreprises dans la migration de leurs infrastructures et applications vers le cloud Azure."
+  },
+  "Certifications": {
+    "title": "Certifications",
+    "issuedBy": "Délivrée par",
+    "issued": "Obtenue",
+    "expires": "Expire",
+    "credentialId": "ID de certification"
+  },
+  "Education": {
+    "title": "Formation"
+  },
+  "Associative": {
+    "title": "Vie associative",
+    "kicker": "En dehors du travail",
+    "intro": "Distincte de mon parcours professionnel : mon engagement bénévole au sein du Leo Club Boumhal La Providence et de l'ACM ESPRIT. Les actions ci-dessous s'inscrivent dans le cadre du Léonisme — le mouvement de jeunesse porté par les Leo Clubs, affiliés au Lions Clubs International — dont je reste membre actif à ce jour.",
+    "roles": "Rôles",
+    "actions": "Actions menées",
+    "actionsSubtitle": "Actions menées dans le cadre du Léonisme, au sein du Leo Club Boumhal La Providence.",
+    "awards": "Distinctions",
+    "sponsors": "Sponsors",
+    "viewOnInstagram": "Voir sur Instagram",
+    "originalCaption": "Légende originale",
+    "photos": "Photos",
+    "roleLabels": {
+      "president": "Président de l'action",
+      "vice_president": "Vice-président de l'action",
+      "organizer": "Membre organisateur"
+    }
+  },
+  "Interests": {
+    "title": "Centres d'intérêt"
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "Une question, une opportunité ? Écrivez-moi.",
+    "name": "Nom",
+    "email": "Email",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi en cours…",
+    "success": "Merci ! Votre message a bien été envoyé.",
+    "error": "Une erreur est survenue. Merci de réessayer.",
+    "rateLimited": "Trop de messages envoyés récemment. Merci de réessayer plus tard.",
+    "directEmail": "Ou écrivez directement à",
+    "directPhone": "Ou appelez au"
+  },
+  "Footer": {
+    "rights": "Tous droits réservés.",
+    "builtWith": "Site réalisé avec Next.js."
+  },
+  "Common": {
+    "viewProject": "Voir le projet",
+    "readMore": "En savoir plus",
+    "readLess": "Afficher moins",
+    "noContent": "Contenu à venir.",
+    "present": "Présent"
+  }
+}

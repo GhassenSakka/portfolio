@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-azure-50: #eff6fc;
+  --color-azure-100: #d7ebfa;
+  --color-azure-200: #b4d9f7;
+  --color-azure-300: #7dbdf0;
+  --color-azure-400: #3f9ce5;
+  --color-azure-500: #0d7fd1;
+  --color-azure-600: #0078d4;
+  --color-azure-700: #0860ab;
+  --color-azure-800: #0b4f89;
+  --color-azure-900: #0f4272;
+  --color-azure-950: #0a2947;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-azure-500);
+  outline-offset: 2px;
+}

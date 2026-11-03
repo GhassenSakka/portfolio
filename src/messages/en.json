@@ -1,0 +1,111 @@
+{
+  "Metadata": {
+    "title": "Ghassen SAKKA — Azure Cloud Consultant",
+    "description": "Professional portfolio of Ghassen SAKKA, Cloud Consultant at CloudShift: Azure, Cloud Architecture, FinOps, Governance."
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "migration": "Migration",
+    "certifications": "Certifications",
+    "education": "Education",
+    "associative": "Community engagement",
+    "interests": "Interests",
+    "contact": "Contact",
+    "downloadCv": "Download my CV",
+    "admin": "Back-office"
+  },
+  "Theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "toggle": "Toggle theme"
+  },
+  "Language": {
+    "fr": "Français",
+    "en": "English",
+    "switchTo": "Switch language"
+  },
+  "Hero": {
+    "eyebrow": "Professional portfolio",
+    "ctaContact": "Contact me",
+    "ctaCv": "Download my CV",
+    "ctaLinkedin": "View my LinkedIn",
+    "statsYears": "years of cloud experience",
+    "statsCertifications": "professional certifications",
+    "statsProjects": "cloud projects delivered"
+  },
+  "About": {
+    "title": "About"
+  },
+  "Experience": {
+    "title": "Professional experience",
+    "current": "Current",
+    "present": "Present"
+  },
+  "Projects": {
+    "title": "Projects"
+  },
+  "Migration": {
+    "title": "Migration",
+    "subtitle": "Helping organizations migrate their infrastructure and applications to the Azure cloud."
+  },
+  "Certifications": {
+    "title": "Certifications",
+    "issuedBy": "Issued by",
+    "issued": "Issued",
+    "expires": "Expires",
+    "credentialId": "Credential ID"
+  },
+  "Education": {
+    "title": "Education"
+  },
+  "Associative": {
+    "title": "Community engagement",
+    "kicker": "Outside of work",
+    "intro": "Separate from my professional career: my volunteer involvement with Leo Club Boumhal La Providence and ACM ESPRIT. The actions below were carried out as part of Leoism — the youth movement run by Leo Clubs, affiliated with Lions Clubs International — of which I remain an active member to this day.",
+    "roles": "Roles",
+    "actions": "Actions",
+    "actionsSubtitle": "Actions carried out as part of Leoism, within Leo Club Boumhal La Providence.",
+    "awards": "Awards",
+    "sponsors": "Sponsors",
+    "viewOnInstagram": "View on Instagram",
+    "originalCaption": "Original caption",
+    "photos": "Photos",
+    "roleLabels": {
+      "president": "Action Lead",
+      "vice_president": "Deputy Action Lead",
+      "organizer": "Organizing Member"
+    }
+  },
+  "Interests": {
+    "title": "Interests"
+  },
+  "Contact": {
+    "title": "Contact",
+    "subtitle": "A question, an opportunity? Write to me.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send",
+    "sending": "Sending…",
+    "success": "Thank you! Your message has been sent.",
+    "error": "Something went wrong. Please try again.",
+    "rateLimited": "Too many messages sent recently. Please try again later.",
+    "directEmail": "Or email me directly at",
+    "directPhone": "Or call"
+  },
+  "Footer": {
+    "rights": "All rights reserved.",
+    "builtWith": "Built with Next.js."
+  },
+  "Common": {
+    "viewProject": "View project",
+    "readMore": "Read more",
+    "readLess": "Show less",
+    "noContent": "Content coming soon.",
+    "present": "Present"
+  }
+}

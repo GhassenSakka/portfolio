@@ -1,0 +1,243 @@
+// Prisma schema — Portfolio Ghassen SAKKA
+// IMPORTANT : un seul schéma pour SQLite (local) et PostgreSQL (production).
+// Seul le champ "provider" ci-dessous change entre les deux environnements.
+// Ce champ est basculé automatiquement par `npm run use:postgres` / `npm run use:sqlite`
+// (scripts/switch-provider.mjs) — ne pas éditer les modèles pour changer de base.
+//
+// Contraintes de compatibilité SQLite <-> PostgreSQL respectées volontairement :
+// - Pas de types de listes natives (String[]) : non supportées par le connecteur SQLite.
+//   Les listes (ex. liens Instagram) sont stockées en texte JSON (voir lib/json-fields.ts).
+// - Pas d'enums natifs ni d'attributs @db.* spécifiques à un provider.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+/// Compte administrateur unique du back-office
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// Profil / Hero / À propos (singleton — une seule ligne)
+model Profile {
+  id            String   @id @default(cuid())
+  fullName      String   @default("Ghassen SAKKA")
+  titleFr       String   @default("")
+  titleEn       String   @default("")
+  bannerFr      String   @default("")
+  bannerEn      String   @default("")
+  aboutFr       String   @default("")
+  aboutEn       String   @default("")
+  partnerNoteFr String? // ex. "Je travaille avec un partenaire Microsoft"
+  partnerNoteEn String?
+  location      String?
+  email1        String?
+  email2        String?
+  phone1        String?
+  phone2        String?
+  linkedinUrl   String?
+  photoUrl      String?
+  cvUrl         String?
+  updatedAt     DateTime @updatedAt
+}
+
+model Experience {
+  id             String    @id @default(cuid())
+  groupLabel     String? // ex. "CloudShift" pour regrouper plusieurs postes
+  companyFr      String
+  companyEn      String
+  roleFr         String
+  roleEn         String
+  descriptionFr  String?
+  descriptionEn  String?
+  employmentType String? // Full-time, Part-time, Internship
+  locationFr     String?
+  locationEn     String?
+  workMode       String? // On-site, Hybrid, Remote
+  startDate      DateTime?
+  endDate        DateTime?
+  isCurrent      Boolean   @default(false)
+  imageUrl       String?
+  linkUrl        String?
+  sortOrder      Int       @default(0)
+  isVisible      Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Project {
+  id            String    @id @default(cuid())
+  titleFr       String
+  titleEn       String
+  descriptionFr String
+  descriptionEn String
+  startDate     DateTime?
+  endDate       DateTime?
+  isCurrent     Boolean   @default(false)
+  imageUrl      String?
+  linkUrl       String?
+  sortOrder     Int       @default(0)
+  isVisible     Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+/// Section dédiée "Migration" (expertise / projets de migration cloud)
+model MigrationProject {
+  id            String    @id @default(cuid())
+  titleFr       String
+  titleEn       String
+  descriptionFr String
+  descriptionEn String
+  startDate     DateTime?
+  endDate       DateTime?
+  isCurrent     Boolean   @default(false)
+  imageUrl      String?
+  linkUrl       String?
+  sortOrder     Int       @default(0)
+  isVisible     Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Certification {
+  id           String    @id @default(cuid())
+  nameFr       String
+  nameEn       String
+  issuer       String
+  credentialId String?
+  issuedAt     DateTime?
+  expiresAt    DateTime?
+  imageUrl     String?
+  linkUrl      String?
+  sortOrder    Int       @default(0)
+  isVisible    Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Education {
+  id        String    @id @default(cuid())
+  schoolFr  String
+  schoolEn  String
+  degreeFr  String
+  degreeEn  String
+  fieldFr   String?
+  fieldEn   String?
+  gradeFr   String?
+  gradeEn   String?
+  startDate DateTime?
+  endDate   DateTime?
+  isCurrent Boolean   @default(false)
+  imageUrl  String?
+  linkUrl   String?
+  sortOrder Int       @default(0)
+  isVisible Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model AssociativeRole {
+  id             String    @id @default(cuid())
+  organizationFr String
+  organizationEn String
+  roleFr         String
+  roleEn         String
+  startDate      DateTime?
+  endDate        DateTime?
+  isCurrent      Boolean   @default(false)
+  imageUrl       String?
+  linkUrl        String?
+  sortOrder      Int       @default(0)
+  isVisible      Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+/// Les 13 actions associatives — légende originale conservée telle quelle (non traduite)
+model AssociativeAction {
+  id              String   @id @default(cuid())
+  titleFr         String
+  titleEn         String
+  captionOriginal String
+  instagramLinks  String   @default("[]") // JSON array of URLs
+  /// Déprécié — conservé pour compatibilité des données existantes, remplacé par `images` (galerie).
+  imageUrl        String?
+  /// Galerie de 1 à 4 photos de l'action, JSON array of URLs (voir lib/json-fields.ts)
+  images          String   @default("[]")
+  /// Rôle tenu lors de CETTE action précise : "president" | "vice_president" | "organizer"
+  role            String   @default("organizer")
+  sortOrder       Int      @default(0)
+  isVisible       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Award {
+  id            String   @id @default(cuid())
+  titleFr       String
+  titleEn       String
+  descriptionFr String
+  descriptionEn String
+  dateLabel     String?
+  photosUrl     String?
+  imageUrl      String?
+  sortOrder     Int      @default(0)
+  isVisible     Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Sponsor {
+  id        String   @id @default(cuid())
+  name      String
+  logoUrl   String?
+  linkUrl   String?
+  sortOrder Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Interest {
+  id        String   @id @default(cuid())
+  labelFr   String
+  labelEn   String
+  icon      String?
+  sortOrder Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialLink {
+  id        String   @id @default(cuid())
+  platform  String
+  labelFr   String?
+  labelEn   String?
+  url       String
+  sortOrder Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String?
+  message   String
+  ipAddress String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
