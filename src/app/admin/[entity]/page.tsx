@@ -35,12 +35,14 @@ export default async function EntityListPage({
           <h1 className="text-2xl font-bold text-slate-900">{config.label}</h1>
           <p className="mt-1 text-sm text-slate-500">{items.length} élément(s)</p>
         </div>
-        <Link
-          href={`/admin/${slug}/new`}
-          className="inline-flex items-center gap-2 rounded-full bg-azure-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-azure-700"
-        >
-          <Plus size={16} /> Ajouter {config.labelSingular}
-        </Link>
+        {config.fixedRows ? null : (
+          <Link
+            href={`/admin/${slug}/new`}
+            className="inline-flex items-center gap-2 rounded-full bg-azure-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-azure-700"
+          >
+            <Plus size={16} /> Ajouter {config.labelSingular}
+          </Link>
+        )}
       </div>
 
       {items.length === 0 ? (
@@ -75,6 +77,7 @@ export default async function EntityListPage({
                   isLast={idx === items.length - 1}
                   orderable={config.orderable}
                   visibilityToggle={config.visibilityToggle}
+                  deletable={!config.fixedRows}
                 />
               </div>
             );

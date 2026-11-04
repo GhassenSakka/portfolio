@@ -14,6 +14,7 @@ export function EntityRowActions({
   isLast,
   orderable,
   visibilityToggle,
+  deletable = true,
 }: {
   slug: string;
   id: string;
@@ -22,6 +23,7 @@ export function EntityRowActions({
   isLast: boolean;
   orderable: boolean;
   visibilityToggle: boolean;
+  deletable?: boolean;
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -91,15 +93,17 @@ export function EntityRowActions({
       >
         <Pencil size={15} />
       </Link>
-      <button
-        type="button"
-        disabled={deleting}
-        onClick={handleDelete}
-        title="Supprimer"
-        className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 hover:bg-red-50 disabled:opacity-50"
-      >
-        <Trash2 size={15} />
-      </button>
+      {deletable ? (
+        <button
+          type="button"
+          disabled={deleting}
+          onClick={handleDelete}
+          title="Supprimer"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-red-500 hover:bg-red-50 disabled:opacity-50"
+        >
+          <Trash2 size={15} />
+        </button>
+      ) : null}
     </div>
   );
 }

@@ -87,7 +87,7 @@ export default async function LocaleLayout({
             >
               Aller au contenu principal / Skip to content
             </a>
-            <SiteHeader />
+            <SiteHeader locale={locale} />
             <main id="main-content" className="flex-1">
               {children}
             </main>

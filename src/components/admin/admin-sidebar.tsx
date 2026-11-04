@@ -23,6 +23,8 @@ import {
   Menu,
   X,
   ExternalLink,
+  ListOrdered,
+  Languages,
 } from "lucide-react";
 import { ENTITY_REGISTRY } from "@/lib/admin/entity-config";
 import { logoutAction } from "@/app/admin/actions/auth-actions";
@@ -61,11 +63,17 @@ export function AdminSidebar({ email }: { email: string }) {
       <Link href="/admin/profile" className={navItemClass("/admin/profile")} onClick={() => setOpen(false)}>
         <User size={16} /> Profil / Hero / À propos
       </Link>
+      <Link href="/admin/sections" className={navItemClass("/admin/sections")} onClick={() => setOpen(false)}>
+        <ListOrdered size={16} /> Sections du site
+      </Link>
+      <Link href="/admin/texts" className={navItemClass("/admin/texts")} onClick={() => setOpen(false)}>
+        <Languages size={16} /> Textes de l&apos;interface
+      </Link>
 
       <p className="mt-4 px-3 text-xs font-semibold uppercase tracking-wide text-slate-400">
         Contenu du site
       </p>
-      {ENTITY_REGISTRY.map((entity) => {
+      {ENTITY_REGISTRY.filter((entity) => !entity.fixedRows).map((entity) => {
         const Icon = ICONS[entity.slug] ?? FolderKanban;
         const href = `/admin/${entity.slug}`;
         return (

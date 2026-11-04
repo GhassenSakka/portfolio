@@ -28,6 +28,9 @@ const profileSchema = z.object({
   phone1: z.string().trim().optional().or(z.literal("")),
   phone2: z.string().trim().optional().or(z.literal("")),
   linkedinUrl: z.string().trim().optional().or(z.literal("")),
+  statsYearsOverride: z.string().trim().optional().or(z.literal("")),
+  statsCertificationsOverride: z.string().trim().optional().or(z.literal("")),
+  statsProjectsOverride: z.string().trim().optional().or(z.literal("")),
 });
 
 export async function saveProfile(
@@ -52,6 +55,9 @@ export async function saveProfile(
     phone1: String(formData.get("phone1") ?? ""),
     phone2: String(formData.get("phone2") ?? ""),
     linkedinUrl: String(formData.get("linkedinUrl") ?? ""),
+    statsYearsOverride: String(formData.get("statsYearsOverride") ?? ""),
+    statsCertificationsOverride: String(formData.get("statsCertificationsOverride") ?? ""),
+    statsProjectsOverride: String(formData.get("statsProjectsOverride") ?? ""),
   };
 
   const parsed = profileSchema.safeParse(raw);
@@ -66,6 +72,12 @@ export async function saveProfile(
 
   const existing = await prisma.profile.findFirst();
 
+  function toIntOrNull(value: string): number | null {
+    if (!value.trim()) return null;
+    const n = Number.parseInt(value, 10);
+    return Number.isFinite(n) && n >= 0 ? n : null;
+  }
+
   const data: Record<string, unknown> = {
     ...parsed.data,
     email1: parsed.data.email1 || null,
@@ -76,6 +88,9 @@ export async function saveProfile(
     linkedinUrl: parsed.data.linkedinUrl || null,
     partnerNoteFr: parsed.data.partnerNoteFr || null,
     partnerNoteEn: parsed.data.partnerNoteEn || null,
+    statsYearsOverride: toIntOrNull(parsed.data.statsYearsOverride ?? ""),
+    statsCertificationsOverride: toIntOrNull(parsed.data.statsCertificationsOverride ?? ""),
+    statsProjectsOverride: toIntOrNull(parsed.data.statsProjectsOverride ?? ""),
   };
 
   // Photo de profil

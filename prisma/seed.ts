@@ -17,6 +17,118 @@ function d(year: number, month: number, day = 1): Date {
   return new Date(Date.UTC(year, month - 1, day));
 }
 
+/** Sections de la page publique, dans l'ordre d'affichage par défaut actuel. */
+const SITE_SECTIONS: Array<{ key: string; labelFr: string; labelEn: string }> = [
+  { key: "hero", labelFr: "Accueil", labelEn: "Home" },
+  { key: "about", labelFr: "À propos", labelEn: "About" },
+  { key: "experience", labelFr: "Expérience", labelEn: "Experience" },
+  { key: "projects", labelFr: "Projets", labelEn: "Projects" },
+  { key: "migration", labelFr: "Migration", labelEn: "Migration" },
+  { key: "certifications", labelFr: "Certifications", labelEn: "Certifications" },
+  { key: "education", labelFr: "Formation", labelEn: "Education" },
+  { key: "associative", labelFr: "Vie associative", labelEn: "Community engagement" },
+  { key: "interests", labelFr: "Centres d'intérêt", labelEn: "Interests" },
+  { key: "contact", labelFr: "Contact", labelEn: "Contact" },
+];
+
+/** Tous les textes d'interface actuels (messages/fr.json + en.json), à plat. */
+const UI_TEXTS: Array<{ key: string; namespace: string; valueFr: string; valueEn: string }> = [
+  { key: "Metadata.title", namespace: "Metadata", valueFr: "Ghassen SAKKA — Cloud Consultant Azure", valueEn: "Ghassen SAKKA — Azure Cloud Consultant" },
+  { key: "Metadata.description", namespace: "Metadata", valueFr: "Portfolio professionnel de Ghassen SAKKA, Cloud Consultant chez CloudShift : Azure, Architecture Cloud, FinOps, Gouvernance.", valueEn: "Professional portfolio of Ghassen SAKKA, Cloud Consultant at CloudShift: Azure, Cloud Architecture, FinOps, Governance." },
+  { key: "Nav.downloadCv", namespace: "Nav", valueFr: "Télécharger mon CV", valueEn: "Download my CV" },
+  { key: "Nav.admin", namespace: "Nav", valueFr: "Back-office", valueEn: "Back-office" },
+  { key: "Theme.light", namespace: "Theme", valueFr: "Mode clair", valueEn: "Light mode" },
+  { key: "Theme.dark", namespace: "Theme", valueFr: "Mode sombre", valueEn: "Dark mode" },
+  { key: "Theme.toggle", namespace: "Theme", valueFr: "Changer de thème", valueEn: "Toggle theme" },
+  { key: "Language.fr", namespace: "Language", valueFr: "Français", valueEn: "Français" },
+  { key: "Language.en", namespace: "Language", valueFr: "English", valueEn: "English" },
+  { key: "Language.switchTo", namespace: "Language", valueFr: "Changer de langue", valueEn: "Switch language" },
+  { key: "Hero.eyebrow", namespace: "Hero", valueFr: "Portfolio professionnel", valueEn: "Professional portfolio" },
+  { key: "Hero.ctaContact", namespace: "Hero", valueFr: "Me contacter", valueEn: "Contact me" },
+  { key: "Hero.ctaCv", namespace: "Hero", valueFr: "Télécharger mon CV", valueEn: "Download my CV" },
+  { key: "Hero.ctaLinkedin", namespace: "Hero", valueFr: "Voir mon LinkedIn", valueEn: "View my LinkedIn" },
+  { key: "Hero.statsYears", namespace: "Hero", valueFr: "ans d'expérience cloud", valueEn: "years of cloud experience" },
+  { key: "Hero.statsCertifications", namespace: "Hero", valueFr: "certifications professionnelles", valueEn: "professional certifications" },
+  { key: "Hero.statsProjects", namespace: "Hero", valueFr: "projets cloud livrés", valueEn: "cloud projects delivered" },
+  { key: "About.title", namespace: "About", valueFr: "À propos", valueEn: "About" },
+  { key: "Experience.title", namespace: "Experience", valueFr: "Expérience professionnelle", valueEn: "Professional experience" },
+  { key: "Experience.current", namespace: "Experience", valueFr: "Aujourd'hui", valueEn: "Current" },
+  { key: "Experience.present", namespace: "Experience", valueFr: "Présent", valueEn: "Present" },
+  { key: "Projects.title", namespace: "Projects", valueFr: "Projets", valueEn: "Projects" },
+  { key: "Migration.title", namespace: "Migration", valueFr: "Migration", valueEn: "Migration" },
+  { key: "Migration.subtitle", namespace: "Migration", valueFr: "Accompagnement des entreprises dans la migration de leurs infrastructures et applications vers le cloud Azure.", valueEn: "Helping organizations migrate their infrastructure and applications to the Azure cloud." },
+  { key: "Certifications.title", namespace: "Certifications", valueFr: "Certifications", valueEn: "Certifications" },
+  { key: "Certifications.issuedBy", namespace: "Certifications", valueFr: "Délivrée par", valueEn: "Issued by" },
+  { key: "Certifications.issued", namespace: "Certifications", valueFr: "Obtenue", valueEn: "Issued" },
+  { key: "Certifications.expires", namespace: "Certifications", valueFr: "Expire", valueEn: "Expires" },
+  { key: "Certifications.credentialId", namespace: "Certifications", valueFr: "ID de certification", valueEn: "Credential ID" },
+  { key: "Education.title", namespace: "Education", valueFr: "Formation", valueEn: "Education" },
+  { key: "Associative.title", namespace: "Associative", valueFr: "Vie associative", valueEn: "Community engagement" },
+  { key: "Associative.kicker", namespace: "Associative", valueFr: "En dehors du travail", valueEn: "Outside of work" },
+  { key: "Associative.intro", namespace: "Associative", valueFr: "Distincte de mon parcours professionnel : mon engagement bénévole au sein du Leo Club Boumhal La Providence et de l'ACM ESPRIT. Les actions ci-dessous s'inscrivent dans le cadre du Léonisme — le mouvement de jeunesse porté par les Leo Clubs, affiliés au Lions Clubs International — dont je reste membre actif à ce jour.", valueEn: "Separate from my professional career: my volunteer involvement with Leo Club Boumhal La Providence and ACM ESPRIT. The actions below were carried out as part of Leoism — the youth movement run by Leo Clubs, affiliated with Lions Clubs International — of which I remain an active member to this day." },
+  { key: "Associative.roles", namespace: "Associative", valueFr: "Rôles", valueEn: "Roles" },
+  { key: "Associative.actions", namespace: "Associative", valueFr: "Actions menées", valueEn: "Actions" },
+  { key: "Associative.actionsSubtitle", namespace: "Associative", valueFr: "Actions menées dans le cadre du Léonisme, au sein du Leo Club Boumhal La Providence.", valueEn: "Actions carried out as part of Leoism, within Leo Club Boumhal La Providence." },
+  { key: "Associative.awards", namespace: "Associative", valueFr: "Distinctions", valueEn: "Awards" },
+  { key: "Associative.sponsors", namespace: "Associative", valueFr: "Sponsors", valueEn: "Sponsors" },
+  { key: "Associative.viewOnInstagram", namespace: "Associative", valueFr: "Voir sur Instagram", valueEn: "View on Instagram" },
+  { key: "Associative.originalCaption", namespace: "Associative", valueFr: "Légende originale", valueEn: "Original caption" },
+  { key: "Associative.photos", namespace: "Associative", valueFr: "Photos", valueEn: "Photos" },
+  { key: "Associative.roleLabels.president", namespace: "Associative", valueFr: "Président de l'action", valueEn: "Action Lead" },
+  { key: "Associative.roleLabels.vice_president", namespace: "Associative", valueFr: "Vice-président de l'action", valueEn: "Deputy Action Lead" },
+  { key: "Associative.roleLabels.organizer", namespace: "Associative", valueFr: "Membre organisateur", valueEn: "Organizing Member" },
+  { key: "Interests.title", namespace: "Interests", valueFr: "Centres d'intérêt", valueEn: "Interests" },
+  { key: "Contact.title", namespace: "Contact", valueFr: "Contact", valueEn: "Contact" },
+  { key: "Contact.subtitle", namespace: "Contact", valueFr: "Une question, une opportunité ? Écrivez-moi.", valueEn: "A question, an opportunity? Write to me." },
+  { key: "Contact.name", namespace: "Contact", valueFr: "Nom", valueEn: "Name" },
+  { key: "Contact.email", namespace: "Contact", valueFr: "Email", valueEn: "Email" },
+  { key: "Contact.subject", namespace: "Contact", valueFr: "Sujet", valueEn: "Subject" },
+  { key: "Contact.message", namespace: "Contact", valueFr: "Message", valueEn: "Message" },
+  { key: "Contact.send", namespace: "Contact", valueFr: "Envoyer", valueEn: "Send" },
+  { key: "Contact.sending", namespace: "Contact", valueFr: "Envoi en cours…", valueEn: "Sending…" },
+  { key: "Contact.success", namespace: "Contact", valueFr: "Merci ! Votre message a bien été envoyé.", valueEn: "Thank you! Your message has been sent." },
+  { key: "Contact.error", namespace: "Contact", valueFr: "Une erreur est survenue. Merci de réessayer.", valueEn: "Something went wrong. Please try again." },
+  { key: "Contact.rateLimited", namespace: "Contact", valueFr: "Trop de messages envoyés récemment. Merci de réessayer plus tard.", valueEn: "Too many messages sent recently. Please try again later." },
+  { key: "Contact.directEmail", namespace: "Contact", valueFr: "Ou écrivez directement à", valueEn: "Or email me directly at" },
+  { key: "Contact.directPhone", namespace: "Contact", valueFr: "Ou appelez au", valueEn: "Or call" },
+  { key: "Footer.rights", namespace: "Footer", valueFr: "Tous droits réservés.", valueEn: "All rights reserved." },
+  { key: "Footer.builtWith", namespace: "Footer", valueFr: "Site réalisé avec Next.js.", valueEn: "Built with Next.js." },
+  { key: "Common.viewProject", namespace: "Common", valueFr: "Voir le projet", valueEn: "View project" },
+  { key: "Common.readMore", namespace: "Common", valueFr: "En savoir plus", valueEn: "Read more" },
+  { key: "Common.readLess", namespace: "Common", valueFr: "Afficher moins", valueEn: "Show less" },
+  { key: "Common.noContent", namespace: "Common", valueFr: "Contenu à venir.", valueEn: "Content coming soon." },
+  { key: "Common.present", namespace: "Common", valueFr: "Présent", valueEn: "Present" },
+];
+
+async function seedSiteSections() {
+  const count = await prisma.siteSection.count();
+  if (count > 0) {
+    console.log("• SiteSections déjà présentes — inchangées.");
+    return;
+  }
+  for (let i = 0; i < SITE_SECTIONS.length; i++) {
+    const s = SITE_SECTIONS[i];
+    await prisma.siteSection.create({
+      data: { key: s.key, labelFr: s.labelFr, labelEn: s.labelEn, sortOrder: i, isVisible: true },
+    });
+  }
+  console.log(`• SiteSections créées (${SITE_SECTIONS.length}).`);
+}
+
+async function seedUiTexts() {
+  const count = await prisma.uiText.count();
+  if (count > 0) {
+    console.log("• UiTexts déjà présents — inchangés.");
+    return;
+  }
+  for (const t of UI_TEXTS) {
+    await prisma.uiText.create({
+      data: { key: t.key, namespace: t.namespace, valueFr: t.valueFr, valueEn: t.valueEn },
+    });
+  }
+  console.log(`• UiTexts créés (${UI_TEXTS.length}).`);
+}
+
 async function seedAdminUser() {
   const count = await prisma.adminUser.count();
   if (count > 0) {
@@ -659,6 +771,8 @@ async function main() {
   console.log("Seed du portfolio Ghassen SAKKA — démarrage...");
   await seedAdminUser();
   await seedProfile();
+  await seedSiteSections();
+  await seedUiTexts();
   await seedEducation();
   await seedCertifications();
   await seedExperiences();

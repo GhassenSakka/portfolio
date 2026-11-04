@@ -168,6 +168,9 @@ export async function saveEntityItem(
     if (id) {
       await db.update({ where: { id }, data });
     } else {
+      if (config.fixedRows) {
+        return { status: "error", message: "Cette section ne permet pas l'ajout de nouvelles lignes." };
+      }
       const maxAgg = await db.aggregate({ _max: { sortOrder: true } });
       const nextSortOrder = (maxAgg._max.sortOrder ?? -1) + 1;
       await db.create({ data: { ...data, sortOrder: nextSortOrder } });
@@ -186,6 +189,7 @@ export async function deleteEntityItem(slug: string, id: string): Promise<void> 
   await requireAdminSession();
   const config = getEntityConfig(slug);
   if (!config) throw new Error("Section inconnue.");
+  if (config.fixedRows) throw new Error("Ces éléments ne peuvent pas être supprimés.");
   const db = delegate(config);
 
   const item = await db.findUnique({ where: { id } });

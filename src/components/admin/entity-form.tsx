@@ -129,7 +129,7 @@ export function EntityForm({
 
       <div className="flex items-center justify-between border-t border-slate-200 pt-5">
         <div>
-          {id ? (
+          {id && !config.fixedRows ? (
             <button
               type="button"
               onClick={handleDelete}

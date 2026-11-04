@@ -95,15 +95,22 @@ export interface HeroStats {
   projectsCount: number;
 }
 
-/** Statistiques calculées à partir du contenu réel (jamais de chiffres inventés). */
+/** Statistiques du Hero : surcharge manuelle (Profil) si définie, sinon calculée à partir du contenu réel. */
 export async function getHeroStats(): Promise<HeroStats> {
-  const [earliestExperience, certificationsCount, projectsCount] = await Promise.all([
+  const [earliestExperience, certificationsCount, projectsCount, profile] = await Promise.all([
     prisma.experience.findFirst({
       where: { isVisible: true, startDate: { not: null } },
       orderBy: { startDate: "asc" },
     }),
     prisma.certification.count({ where: { isVisible: true } }),
     prisma.project.count({ where: { isVisible: true } }),
+    prisma.profile.findFirst({
+      select: {
+        statsYearsOverride: true,
+        statsCertificationsOverride: true,
+        statsProjectsOverride: true,
+      },
+    }),
   ]);
 
   let yearsOfExperience = 0;
@@ -112,5 +119,9 @@ export async function getHeroStats(): Promise<HeroStats> {
     yearsOfExperience = Math.max(1, Math.round(ms / (365.25 * 24 * 60 * 60 * 1000)));
   }
 
-  return { yearsOfExperience, certificationsCount, projectsCount };
+  return {
+    yearsOfExperience: profile?.statsYearsOverride ?? yearsOfExperience,
+    certificationsCount: profile?.statsCertificationsOverride ?? certificationsCount,
+    projectsCount: profile?.statsProjectsOverride ?? projectsCount,
+  };
 }

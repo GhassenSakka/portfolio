@@ -48,6 +48,13 @@ export interface EntityConfig {
   visibilityToggle: boolean;
   listTitleField: string;
   listSubtitleField?: string;
+  /**
+   * Lignes fixes : masque les actions "Ajouter" et "Supprimer" (liste + formulaire).
+   * Utilisé pour les entités dont les lignes correspondent à du code existant
+   * (ex. les sections de la page publique) et ne peuvent donc pas être créées
+   * ou supprimées librement depuis le back-office.
+   */
+  fixedRows?: boolean;
 }
 
 /**
@@ -76,6 +83,26 @@ const VISIBILITY_FIELD: FieldConfig = {
 };
 
 export const ENTITY_REGISTRY: EntityConfig[] = [
+  {
+    slug: "sections",
+    model: "siteSection",
+    label: "Sections du site",
+    labelSingular: "une section",
+    orderable: true,
+    visibilityToggle: true,
+    fixedRows: true,
+    listTitleField: "label",
+    fields: [
+      {
+        name: "label",
+        label: "Libellé de navigation",
+        type: "bilingual-text",
+        required: true,
+        helpText: "Texte affiché dans le menu de navigation et comme titre de la section.",
+      },
+      VISIBILITY_FIELD,
+    ],
+  },
   {
     slug: "experiences",
     model: "experience",

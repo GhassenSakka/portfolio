@@ -47,7 +47,45 @@ model Profile {
   linkedinUrl   String?
   photoUrl      String?
   cvUrl         String?
+  /// Surcharges optionnelles des statistiques du Hero (sinon calculées automatiquement
+  /// depuis les données réelles — voir getHeroStats() dans lib/content.ts).
+  statsYearsOverride         Int?
+  statsCertificationsOverride Int?
+  statsProjectsOverride      Int?
   updatedAt     DateTime @updatedAt
+}
+
+/// Sections de la page publique (Hero, À propos, Expérience, ...) : contrôle
+/// l'ordre d'affichage, la visibilité et le libellé de navigation de chaque
+/// section. Lignes fixes (une par section de code existante) : pas d'ajout ni
+/// de suppression possible depuis le back-office, seulement réordonner /
+/// masquer-afficher / renommer le libellé de nav.
+model SiteSection {
+  id        String   @id @default(cuid())
+  /// Identifiant technique stable, mappé en dur dans le code (ex. "hero", "about"...).
+  key       String   @unique
+  labelFr   String
+  labelEn   String
+  sortOrder Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// Textes d'interface du site public (navigation, titres de section, libellés
+/// de boutons, messages...) : chaque clé correspond à un chemin next-intl
+/// (ex. "Nav.home", "Associative.roleLabels.president"). Permet d'éditer tout
+/// texte affiché sans toucher au code. Fusionné par-dessus les fichiers
+/// messages/fr.json et messages/en.json (qui restent le filet de sécurité par
+/// défaut) au moment du rendu — voir src/i18n/request.ts.
+model UiText {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  /// Regroupement pour l'affichage dans le back-office (ex. "Nav", "Hero"...).
+  namespace String
+  valueFr   String
+  valueEn   String
+  updatedAt DateTime @updatedAt
 }
 
 model Experience {

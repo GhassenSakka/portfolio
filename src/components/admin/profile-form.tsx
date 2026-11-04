@@ -144,6 +144,61 @@ export function ProfileForm({ profile }: { profile: Profile | null }) {
         </div>
       </div>
 
+      <div className="border-t border-slate-200 pt-5">
+        <h3 className="mb-1 text-sm font-semibold text-slate-900">
+          Statistiques affichées dans l&apos;en-tête (Hero)
+        </h3>
+        <p className="mb-4 text-xs text-slate-400">
+          Laissez vide pour un calcul automatique à partir du contenu réel (date de début de la
+          première expérience visible, nombre de certifications/projets visibles). Renseignez une
+          valeur pour l&apos;imposer manuellement.
+        </p>
+        <div className="grid gap-5 sm:grid-cols-3">
+          <div>
+            <label htmlFor="statsYearsOverride" className="mb-1 block text-sm font-medium text-slate-700">
+              Années d&apos;expérience
+            </label>
+            <input
+              id="statsYearsOverride"
+              name="statsYearsOverride"
+              type="number"
+              min={0}
+              placeholder="Auto"
+              defaultValue={profile?.statsYearsOverride ?? ""}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor="statsCertificationsOverride" className="mb-1 block text-sm font-medium text-slate-700">
+              Certifications
+            </label>
+            <input
+              id="statsCertificationsOverride"
+              name="statsCertificationsOverride"
+              type="number"
+              min={0}
+              placeholder="Auto"
+              defaultValue={profile?.statsCertificationsOverride ?? ""}
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor="statsProjectsOverride" className="mb-1 block text-sm font-medium text-slate-700">
+              Projets
+            </label>
+            <input
+              id="statsProjectsOverride"
+              name="statsProjectsOverride"
+              type="number"
+              min={0}
+              placeholder="Auto"
+              defaultValue={profile?.statsProjectsOverride ?? ""}
+              className={inputClass}
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="grid gap-5 border-t border-slate-200 pt-5 sm:grid-cols-2">
         <div>
           <label htmlFor="location" className="mb-1 block text-sm font-medium text-slate-700">

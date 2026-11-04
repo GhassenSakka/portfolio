@@ -7,26 +7,19 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { LinkedinIcon } from "@/components/brand-icons";
 
+interface NavItem {
+  hash: string;
+  label: string;
+}
+
 interface HeaderClientProps {
   fullName: string;
   cvUrl: string | null;
   linkedinUrl: string | null;
+  navItems: NavItem[];
 }
 
-const NAV_ITEMS = [
-  { hash: "#hero", key: "home" },
-  { hash: "#about", key: "about" },
-  { hash: "#experience", key: "experience" },
-  { hash: "#projects", key: "projects" },
-  { hash: "#migration", key: "migration" },
-  { hash: "#certifications", key: "certifications" },
-  { hash: "#education", key: "education" },
-  { hash: "#associative", key: "associative" },
-  { hash: "#interests", key: "interests" },
-  { hash: "#contact", key: "contact" },
-] as const;
-
-export function HeaderClient({ fullName, cvUrl, linkedinUrl }: HeaderClientProps) {
+export function HeaderClient({ fullName, cvUrl, linkedinUrl, navItems }: HeaderClientProps) {
   const [open, setOpen] = useState(false);
   const t = useTranslations("Nav");
 
@@ -41,13 +34,13 @@ export function HeaderClient({ fullName, cvUrl, linkedinUrl }: HeaderClientProps
         </a>
 
         <nav className="hidden flex-1 items-center justify-center gap-5 lg:flex" aria-label="Main">
-          {NAV_ITEMS.map((item) => (
+          {navItems.map((item) => (
             <a
-              key={item.key}
+              key={item.hash}
               href={item.hash}
               className="text-sm font-medium text-foreground/80 transition-colors hover:text-azure-600 dark:hover:text-azure-300"
             >
-              {t(item.key)}
+              {item.label}
             </a>
           ))}
         </nav>
@@ -92,14 +85,14 @@ export function HeaderClient({ fullName, cvUrl, linkedinUrl }: HeaderClientProps
       {open ? (
         <div className="border-t border-surface-border bg-background px-4 pb-4 lg:hidden">
           <nav className="flex flex-col gap-1 pt-2" aria-label="Mobile">
-            {NAV_ITEMS.map((item) => (
+            {navItems.map((item) => (
               <a
-                key={item.key}
+                key={item.hash}
                 href={item.hash}
                 onClick={() => setOpen(false)}
                 className="rounded-md px-2 py-2 text-sm font-medium text-foreground/80 hover:bg-azure-50 dark:hover:bg-azure-950/40"
               >
-                {t(item.key)}
+                {item.label}
               </a>
             ))}
           </nav>

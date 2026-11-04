@@ -11,7 +11,7 @@ export default async function NewEntityPage({
 }) {
   const { entity: slug } = await params;
   const config = getEntityConfig(slug);
-  if (!config) notFound();
+  if (!config || config.fixedRows) notFound();
 
   return (
     <div className="mx-auto max-w-3xl">
