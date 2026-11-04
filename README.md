@@ -58,7 +58,19 @@ admin n'existe encore au moment de `npm run setup`.
 1. Ouvrez http://localhost:3000/admin et connectez-vous.
 2. Le menu de gauche liste toutes les sections :
    - **Profil / Hero / À propos** : nom, titre, bandeau, texte « à propos »,
-     mention partenaire Microsoft, contacts, photo de profil, CV (PDF).
+     mention partenaire Microsoft, contacts, photo de profil, CV (PDF), et les
+     statistiques du Hero (années d'expérience, certifications, projets —
+     calculées automatiquement si laissées vides, ou imposées manuellement).
+   - **Sections du site** : ordre d'affichage (flèches ↑↓), visibilité (icône
+     œil) et libellé de navigation (FR/EN) de chaque section de la page
+     publique (Accueil, À propos, Expérience, Projets, Migration,
+     Certifications, Formation, Vie associative, Centres d'intérêt, Contact).
+     Les 10 sections sont fixes (pas d'ajout/suppression), seuls l'ordre, la
+     visibilité et le libellé se personnalisent.
+   - **Textes de l'interface** : tous les textes fixes du site public qui ne
+     dépendent pas d'un élément de contenu précis (navigation, titres de
+     section, libellés de boutons, messages du formulaire de contact…), en
+     français et en anglais, modifiables sans toucher au code.
    - **Expériences, Projets, Migration, Certifications, Formation, Rôles
      associatifs, Actions associatives, Distinctions, Sponsors, Centres
      d'intérêt, Liens et réseaux** : CRUD complet (ajouter / modifier /
